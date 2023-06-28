@@ -1,0 +1,8 @@
+#-------------------- Makefile
+test.o: CXXFLAGS += -DHG_ID='"${shell hgx id -i}"'
+
+test: test.o
+	${CXX} ${LDFLAGS} -o $@ $^
+
+%.o: %.cc
+	${CXX} ${CXXFLAGS} -c -o $@ $<

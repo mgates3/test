@@ -1,17 +1,24 @@
 -include make.inc
 
 CFLAGS   += -MMD
-CXXFLAGS += -MMD
+CXXFLAGS += -MMD -fopenmp
+LDFLAGS  +=      -fopenmp
 
 src = ${wildcard *.cc} ${wildcard *.c}
 obj = ${addsuffix .o, ${basename ${src}}}
 dep = ${addsuffix .d, ${basename ${src}}}
 exe = ${basename ${src}}
 
-exe := ${filter-out norm_impl, ${exe}}
+exe := ${filter-out norm_impl template_b, ${exe}}
 norm: norm.o norm_impl.o
 elpa_main: elpa_wrapper.o
 unordered_map: fasthash.o
+
+template_a: template_b.o
+
+ifeq (${error},1)
+    CXXFLAGS += -DERROR
+endif
 
 .SUFFIXES:
 .SECONDARY:
