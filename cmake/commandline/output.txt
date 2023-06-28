@@ -1,0 +1,68 @@
+thyme cmake/commandline> ./run.sh
+============================================================
+mkdir build-0
+cd build-0
+cmake ..
+-- The CXX compiler identification is AppleClang 13.1.6.13160021
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/mgates/Documents/test/cmake/commandline/build-0
+make
+[ 50%] Building CXX object CMakeFiles/main.dir/main.cc.o
+[100%] Linking CXX executable main
+[100%] Built target main
+./main
+main
+cd ..
+
+
+============================================================
+mkdir build-1
+cd build-1
+cmake -DCMAKE_CXX_FLAGS='-DMAGMA_ILP64' ..
+-- The CXX compiler identification is AppleClang 13.1.6.13160021
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/mgates/Documents/test/cmake/commandline/build-1
+make
+[ 50%] Building CXX object CMakeFiles/main.dir/main.cc.o
+[100%] Linking CXX executable main
+[100%] Built target main
+./main
+main
+MAGMA_ILP64 1
+cd ..
+
+
+============================================================
+mkdir build-2
+cd build-2
+cmake -DCMAKE_CXX_FLAGS='-DMAGMA_ILP64 -DMKL_ILP64' ..
+-- The CXX compiler identification is AppleClang 13.1.6.13160021
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/mgates/Documents/test/cmake/commandline/build-2
+make
+[ 50%] Building CXX object CMakeFiles/main.dir/main.cc.o
+[100%] Linking CXX executable main
+[100%] Built target main
+./main
+main
+MAGMA_ILP64 1
+MKL_ILP64 1
+cd ..

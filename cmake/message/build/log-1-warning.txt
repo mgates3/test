@@ -1,0 +1,46 @@
+CMake Warning (dev) at CMakeLists.txt:80 (message):
+  author_warning message
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at CMakeLists.txt:81 (message):
+  multiline author_warning message
+
+      line 2
+      line 3
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Deprecation Warning at CMakeLists.txt:91 (message):
+  deprecation message
+
+
+CMake Deprecation Warning at CMakeLists.txt:92 (message):
+  multiline deprecation message
+
+      line 2
+      line 3
+
+
+CMake Warning at CMakeLists.txt:102 (message):
+  warning message
+
+
+CMake Warning at CMakeLists.txt:103 (message):
+  multiline warning message
+
+      line 2
+      line 3
+
+
+CMake Error at CMakeLists.txt:116 (message):
+  send_error message
+
+
+CMake Error at CMakeLists.txt:117 (message):
+  multiline send_error message
+
+      line 2
+      line 3
+
+
+-- Configuring incomplete, errors occurred!
+See also "/Users/mgates/Documents/test/cmake/message/build/CMakeFiles/CMakeOutput.log".

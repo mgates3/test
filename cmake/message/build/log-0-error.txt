@@ -1,0 +1,13 @@
+CMake Error at CMakeLists.txt:116 (message):
+  send_error message
+
+
+CMake Error at CMakeLists.txt:117 (message):
+  multiline send_error message
+
+      line 2
+      line 3
+
+
+-- Configuring incomplete, errors occurred!
+See also "/Users/mgates/Documents/test/cmake/message/build/CMakeFiles/CMakeOutput.log".
