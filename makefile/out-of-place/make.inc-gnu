@@ -1,0 +1,4 @@
+CXX = g++
+CC  = gcc
+FC  = gfortran
+build = _build_gnu

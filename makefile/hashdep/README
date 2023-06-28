@@ -1,0 +1,73 @@
+Does depends on md5 hashes of files, rather than the files themselves.
+
+Deficiencies:
+
+1. Due to the weird way `make` handles directories, using a hashdeps
+directory doesn't mesh with a non-recursive makefile where filenames
+also have directories. See GNU make manual, section 10.5.4, How Patterns
+Match:
+
+    "When the target pattern does not contain a slash (and it usually
+    does not), directory names in the file names are removed from the
+    file name before it is compared with the target prefix and suffix.
+    After the comparison of the file name to the target pattern, the
+    directory names, along with the slash that ends them, are added on
+    to the prerequisite file names generated from the pattern rule’s
+    prerequisite patterns and the file name. The directories are ignored
+    only for the purpose of finding an implicit rule to use, not in the
+    application of that rule. Thus, ‘e%t’ matches the file name src/eat,
+    with ‘src/a’ as the stem. When prerequisites are turned into file
+    names, the directories from the stem are added at the front, while
+    the rest of the stem is substituted for the ‘%’. The stem ‘src/a’
+    with a prerequisite pattern ‘c%r’ gives the file name src/car."
+
+Thus
+    %.o: ${call hash_deps,%.cc}
+becomes
+    %.o: hashdeps/%.cc.dephash
+which matches stem `tester` to become:
+    test/tester.o: test/hashdeps/tester.cc.dephash
+That, in turn, does NOT match:
+    hashdeps/%.cc.dephash: %
+
+2. Initially, it knows only the source (*.cc) files, and will create
+dephash files for those:
+
+    hashdep> make
+    Updating hash file: test/tester.cc.dephash
+    g++ -fPIC -Wall -MMD -I src -c -o test/tester.o       test/tester.cc
+    Updating hash file: src/a.cc.dephash
+    g++ -fPIC -Wall -MMD -I src -c -o src/a.o       src/a.cc
+    Updating hash file: src/b.cc.dephash
+    g++ -fPIC -Wall -MMD -I src -c -o src/b.o       src/b.cc
+    g++ -fPIC -shared -o lib/libmine.so src/a.o src/b.o
+    g++ -fPIC -Wall -MMD -I src -o test/tester test/tester.o -L lib -lmine
+
+On the 2nd build, the header files have been added to the *.d dependency
+files, so it needlessly recompiles everything, and creates dephash files
+for the headers:
+
+    hashdep> make
+    Updating hash file: src/a.hh.dephash
+    g++ -fPIC -Wall -MMD -I src -c -o test/tester.o       test/tester.cc
+    Updating hash file: src/b.hh.dephash
+    g++ -fPIC -Wall -MMD -I src -c -o src/a.o       src/a.cc
+    g++ -fPIC -shared -o lib/libmine.so src/a.o src/b.o
+    g++ -fPIC -Wall -MMD -I src -o test/tester test/tester.o -L lib -lmine
+
+On the 3rd build, it recognizes that everything is up-to-date.
+
+    hashdep> make
+    make: Nothing to be done for 'all'.
+
+3. If any file is touched, it will recognize that it is up-to-date, but
+can't adjust timestamps of files so it will continue to run md5sum on
+files and print "up to date" notices with each subsequent build:
+
+    hashdep> touch src/*.cc
+    hashdep> make
+    Hash file still up to date: src/a.cc.dephash
+    Hash file still up to date: src/b.cc.dephash
+    hashdep> make
+    Hash file still up to date: src/a.cc.dephash
+    Hash file still up to date: src/b.cc.dephash

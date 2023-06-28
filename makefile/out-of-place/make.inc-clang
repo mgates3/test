@@ -1,0 +1,4 @@
+CXX = clang++
+CC  = clang
+FC  = gfortran
+build = _build_clang
