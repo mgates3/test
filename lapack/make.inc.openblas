@@ -1,0 +1,7 @@
+CXX       = g++
+CXXFLAGS  = -Wall -std=c++11 -I /opt/slate/include
+#LIBS      = -L /opt/slate/lib -Wl,-rpath,/opt/slate/lib -llapackpp
+LIBS      = -lopenblas
+
+FC        = gfortran
+FCFLAGS   = -Wall
