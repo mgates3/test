@@ -2,7 +2,7 @@
 .git
 .hg
 .hgignore*
-
+*.o
 
 make.inc
 build
@@ -66,14 +66,19 @@ mpi/allreduce
 mpi/bcast
 mpi/gather
 mpi/gatherv
+mpi/hello
 mpi/init
 mpi/isend
+mpi/local_rank
 mpi/processor_name
+mpi/random
 mpi/reduce
 mpi/scatter
 mpi/scatterv
 mpi/send
 mpi/sendrecv
+mpi/time
+mpi/time2
 mpi/version
 openmp/*.svg
 openmp/hello
